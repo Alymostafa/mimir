@@ -186,10 +186,17 @@ class Model(nn.Module):
                     self.name, **model_kwargs, trust_remote_code=True, device_map=device_map, cache_dir=self.cache_dir)
             elif "olmo" in self.name.lower():
                 model = transformers.AutoModelForCausalLM.from_pretrained(
-                    self.name, **model_kwargs, trust_remote_code=True, cache_dir=self.cache_dir)
-            else:
+                    self.name, **model_kwargs, trust_remote_code=True, cache_dir=self.cache_dir)          
+            elif "xglm" in self.name.lower():
                 model = transformers.AutoModelForCausalLM.from_pretrained(
-                    self.name, **model_kwargs, device_map=device_map, cache_dir=self.cache_dir)
+                    self.name, **model_kwargs, trust_remote_code=True, cache_dir=self.cache_dir)      
+            elif "aya-101" in self.name.lower():
+                model = transformers.AutoModelForSeq2SeqLM.from_pretrained(
+                    self.name, **model_kwargs, trust_remote_code=True, cache_dir=self.cache_dir, torch_dtype=torch.float16)                                  
+            else:
+                print('mt5')
+                model = transformers.AutoModelForSeq2SeqLM.from_pretrained(
+                    self.name, **model_kwargs, cache_dir=self.cache_dir)
         else:
             model = None
 
