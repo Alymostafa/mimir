@@ -589,13 +589,13 @@ def main(config: ExperimentConfig):
     if not config.pretokenized:
         with open(os.path.join(SAVE_FOLDER, "raw_data.json"), "w") as f:
             print(f"Writing raw data to {os.path.join(SAVE_FOLDER, 'raw_data.json')}")
-            json.dump(data, f)
+            json.dump(data, f, ensure_ascii = False)
 
         with open(os.path.join(SAVE_FOLDER, "raw_data_lens.json"), "w") as f:
             print(
                 f"Writing raw data to {os.path.join(SAVE_FOLDER, 'raw_data_lens.json')}"
             )
-            json.dump(seq_lens, f)
+            json.dump(seq_lens, f, ensure_ascii = False)
 
     # TODO: Remove below if not needed/used
     """
@@ -687,7 +687,7 @@ def main(config: ExperimentConfig):
     for attack, output in blackbox_outputs.items():
         outputs.append(output)
         with open(os.path.join(SAVE_FOLDER, f"{attack}_results.json"), "w") as f:
-            json.dump(output, f)
+            json.dump(output, f, ensure_ascii = False)
 
     neighbor_model_name = neigh_config.model if neigh_config else None
     plot_utils.save_roc_curves(
